@@ -2,28 +2,88 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>온길 — Teacher & Growth Coach</title>
     <style>
-        body { background-color: #faf6f0; color: #4a3f33; text-align: center; padding-top: 50px; font-family: sans-serif; }
-        .profile { width: 180px; height: 180px; border-radius: 50%; border: 5px solid white; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        /* 기본 배경과 폰트 설정 */
+        body { background-color: #faf6f0; color: #4a3f33; text-align: center; font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; line-height: 1.6; margin: 0; padding: 40px 20px; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* 프로필 섹션 */
+        .profile { width: 160px; height: 160px; border-radius: 50%; border: 5px solid white; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
         .profile img { width: 100%; height: 100%; object-fit: cover; }
-        .card { background: #2e2318; color: white; padding: 30px; border-radius: 15px; max-width: 400px; margin: 20px auto; }
-        .btn { display: inline-block; background: #c9894b; color: white; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold; margin-top: 15px; }
+        .name { font-size: 2rem; font-weight: bold; margin: 10px 0; color: #2e2318; }
+        .intro { font-size: 1.1rem; color: #7a5c3a; margin-bottom: 30px; word-break: keep-all; }
+
+        /* 핵심 강의자료 (강조 상자) */
+        .special-box { background: #2e2318; color: #fff9f3; padding: 30px 20px; border-radius: 15px; max-width: 600px; margin: 0 auto 40px; }
+        .btn-ai { display: inline-block; background: #c9894b; color: white; padding: 12px 30px; border-radius: 30px; font-weight: bold; margin-top: 15px; border: none; cursor: pointer; }
+        .btn-ai:hover { background: #e8b47a; }
+
+        /* 섹션 공통 스타일 */
+        .section { max-width: 600px; margin: 40px auto; text-align: left; border-top: 1px solid #e8ddd2; padding-top: 30px; }
+        .section-title { font-size: 1.3rem; font-weight: bold; color: #c9894b; margin-bottom: 20px; text-align: center; letter-spacing: 0.1em; }
+
+        /* 성장철학 카드 */
+        .growth-item { margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .growth-item b { color: #2e2318; }
+
+        /* 브런치북 & 블로그 리스트 */
+        .link-list { list-style: none; padding: 0; }
+        .link-item { display: block; background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #e8ddd2; transition: 0.3s; }
+        .link-item:hover { transform: translateY(-3px); border-color: #c9894b; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .link-num { color: #c9894b; font-weight: bold; margin-right: 10px; }
+
+        footer { font-size: 0.8rem; color: #9a8878; margin-top: 60px; }
     </style>
 </head>
 <body>
+
     <div class="profile">
-        <img src="ongil_profile.jpg" alt="온길 사진">
+        <img src="ongil_profile.jpg" alt="온길">
     </div>
-    <h1>온길 (안혜진)</h1>
-    <p>20년 차 초등교사 · 성장 코치</p>
-    
-    <div class="card">
-        <h3>AI와 상담심리 강의자료</h3>
-        <p>4월 남부대학교 대학원 특강</p>
-        <a href="https://docs.google.com/document/d/1YYN0rpw7etao4AyhoUnLb9Y7voAkc7A-yPoGOp2RQxI/edit?tab=t.0" target="_blank" class="btn">강의자료 보러가기</a>
+    <div class="name">온길 (안혜진)</div>
+    <div class="intro">20년 차 초등교사 · 작가 · 성장 코치<br>"나답게 성장하는 여정을 따뜻하게 기록합니다"</div>
+
+    <div class="special-box">
+        <h3 style="margin: 0;">AI와 상담심리 강의자료</h3>
+        <p style="font-size: 0.9rem; opacity: 0.8;">4월 남부대학교 대학원 특강용 프롬프트 & 도구모음</p>
+        <a href="https://docs.google.com/document/d/1YYN0rpw7etao4AyhoUnLb9Y7voAkc7A-yPoGOp2RQxI/edit?tab=t.0" target="_blank" class="btn-ai">자료 보러가기 →</a>
     </div>
 
-    <p><a href="https://brunch.co.kr/brunchbook/teachers-words" style="color: #7a5c3a;">브런치북 <교사의 언어> 보러가기</a></p>
+    <div class="section">
+        <div class="section-title">GROWTH PHILOSOPHY</div>
+        <div class="growth-item">🌱 <b>믿음이 먼저:</b> 누구나 성장할 수 있다는 믿음에서 시작합니다.</div>
+        <div class="growth-item">👣 <b>오늘 한 걸음:</b> 하루의 작은 성취가 삶을 바꿉니다.</div>
+        <div class="growth-item">🌙 <b>깊고 단단하게:</b> 결과보다 내 안의 평안과 의미를 향합니다.</div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">BRUNCH BOOKS</div>
+        <div class="link-list">
+            <a href="https://brunch.co.kr/brunchbook/teachers-words" target="_blank" class="link-item">
+                <span class="link-num">01</span> 교사의 언어 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+            </a>
+            <a href="https://brunch.co.kr/brunchbook/botongnal" target="_blank" class="link-item">
+                <span class="link-num">02</span> 보통날의 철학 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+            </a>
+            <a href="https://brunch.co.kr/brunchbook/booktoself" target="_blank" class="link-item">
+                <span class="link-num">03</span> 책으로부터, 나에게로 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">RECORD</div>
+        <a href="https://blog.naver.com/hyejinan091" target="_blank" class="link-item" style="background: #f0fdf4; border-color: #bbf7d0;">
+            📝 <b>온길의 블로그:</b> 일상과 성장의 기록 보러가기
+        </a>
+    </div>
+
+    <footer>
+        © 2025 온길 Ongil. All Rights Reserved.<br>
+        hyejinan091@gmail.com
+    </footer>
+
 </body>
 </html>
