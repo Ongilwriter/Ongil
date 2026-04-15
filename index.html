@@ -4,85 +4,489 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>온길 — Teacher & Growth Coach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Serif+KR:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* 기본 배경과 폰트 설정 */
-        body { background-color: #faf6f0; color: #4a3f33; text-align: center; font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; line-height: 1.6; margin: 0; padding: 40px 20px; }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        
-        /* 프로필 섹션 */
-        .profile { width: 160px; height: 160px; border-radius: 50%; border: 5px solid white; margin: 0 auto 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .profile img { width: 100%; height: 100%; object-fit: cover; }
-        .name { font-size: 2rem; font-weight: bold; margin: 10px 0; color: #2e2318; }
-        .intro { font-size: 1.1rem; color: #7a5c3a; margin-bottom: 30px; word-break: keep-all; }
+        :root {
+            --bg: #f5ede0;
+            --bg2: #ede0ce;
+            --ink: #2a1f14;
+            --ink-light: #6b5240;
+            --accent: #c9894b;
+            --white: #fffaf4;
+            --border: rgba(42,31,20,0.12);
+        }
 
-        /* 핵심 강의자료 (강조 상자) */
-        .special-box { background: #2e2318; color: #fff9f3; padding: 30px 20px; border-radius: 15px; max-width: 600px; margin: 0 auto 40px; }
-        .btn-ai { display: inline-block; background: #c9894b; color: white; padding: 12px 30px; border-radius: 30px; font-weight: bold; margin-top: 15px; border: none; cursor: pointer; }
-        .btn-ai:hover { background: #e8b47a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 섹션 공통 스타일 */
-        .section { max-width: 600px; margin: 40px auto; text-align: left; border-top: 1px solid #e8ddd2; padding-top: 30px; }
-        .section-title { font-size: 1.3rem; font-weight: bold; color: #c9894b; margin-bottom: 20px; text-align: center; letter-spacing: 0.1em; }
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Noto Serif KR', 'Apple SD Gothic Neo', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── 배경 텍스처 (얇은 그레인) ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(255,220,170,0.35) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(180,130,80,0.15) 0%, transparent 55%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── 상단 네비게이션 ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 36px;
+            padding: 22px 48px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(245,237,224,0.85) 0%, transparent 100%);
+            backdrop-filter: blur(2px);
+        }
+
+        nav a {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--ink-light);
+            text-decoration: none;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--ink); }
+
+        /* ── 히어로 섹션 ── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 40px 60px;
+            text-align: center;
+        }
+
+        /* 코너 장식선 (카메라 프레임 느낌) */
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            width: 40px; height: 40px;
+            border-color: rgba(42,31,20,0.25);
+            border-style: solid;
+        }
+        .hero::before { top: 90px; left: 40px; border-width: 1px 0 0 1px; }
+        .hero::after  { top: 90px; right: 40px; border-width: 1px 1px 0 0; }
+
+        .hero-inner::before, .hero-inner::after {
+            content: '';
+            position: absolute;
+            width: 40px; height: 40px;
+            border-color: rgba(42,31,20,0.25);
+            border-style: solid;
+        }
+        .hero-inner { position: relative; width: 100%; max-width: 700px; }
+        .hero-inner::before { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+        .hero-inner::after  { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+        /* Teacher & Growth Coach 레이블 */
+        .label {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.72rem;
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        /* 온길 큰 제목 */
+        .title-ongil {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: clamp(5rem, 14vw, 9rem);
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease forwards 0.4s;
+        }
+
+        /* 구분선 */
+        .divider {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(to bottom, transparent, var(--ink-light), transparent);
+            margin: 0 auto 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards 0.7s;
+        }
+
+        /* ONGIL · 안혜진 부제 */
+        .subtitle {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: var(--ink-light);
+            margin-bottom: 52px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.6s;
+        }
+        .subtitle span { margin: 0 12px; }
+        .subtitle .dot { color: var(--accent); font-size: 0.6rem; vertical-align: middle; }
+
+        /* 소개 문구 */
+        .tagline {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: var(--ink);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.85s;
+        }
+
+        /* 핵심 철학 인용구 */
+        .quote {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--ink-light);
+            font-style: italic;
+            letter-spacing: 0.03em;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1.05s;
+        }
+
+        /* ── 콘텐츠 섹션들 ── */
+        main {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 28px 80px;
+        }
+
+        /* 강의자료 특별 박스 */
+        .special-box {
+            background: var(--ink);
+            color: var(--white);
+            padding: 32px 28px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 56px;
+            box-shadow: 0 8px 32px rgba(42,31,20,0.18);
+        }
+        .special-box h3 {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+        .special-box p {
+            font-size: 0.82rem;
+            opacity: 0.65;
+            margin-bottom: 20px;
+            letter-spacing: 0.03em;
+        }
+        .btn-ai {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 11px 28px;
+            border-radius: 2px;
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn-ai:hover { background: #e8a66a; transform: translateY(-1px); }
+
+        /* 공통 섹션 */
+        .section {
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 0.72rem;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+        }
 
         /* 성장철학 카드 */
-        .growth-item { margin-bottom: 15px; padding: 15px; background: #fff; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .growth-item b { color: #2e2318; }
+        .growth-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--white);
+            border-radius: 2px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 4px rgba(42,31,20,0.06);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+        .growth-item .icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+        .growth-item b { color: var(--ink); font-weight: 600; }
 
-        /* 브런치북 & 블로그 리스트 */
-        .link-list { list-style: none; padding: 0; }
-        .link-item { display: block; background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 10px; border: 1px solid #e8ddd2; transition: 0.3s; }
-        .link-item:hover { transform: translateY(-3px); border-color: #c9894b; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .link-num { color: #c9894b; font-weight: bold; margin-right: 10px; }
+        /* 브런치북 & 블로그 */
+        .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 0.92rem;
+            transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
+        }
+        .link-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(42,31,20,0.07);
+        }
+        .link-num {
+            color: var(--accent);
+            font-family: 'Nanum Myeongjo', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-right: 14px;
+        }
+        .link-arrow {
+            font-size: 0.78rem;
+            color: var(--ink-light);
+            opacity: 0.6;
+        }
 
-        footer { font-size: 0.8rem; color: #9a8878; margin-top: 60px; }
+        /* 블로그 */
+        .blog-item {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+
+        /* 강연 문의 */
+        .contact-box {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            padding: 28px 24px;
+            text-align: center;
+            font-size: 0.88rem;
+            color: var(--ink-light);
+            line-height: 1.8;
+        }
+        .contact-note {
+            font-size: 0.82rem;
+            color: var(--ink-light);
+            margin-bottom: 20px;
+            opacity: 0.75;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .contact-link:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(42,31,20,0.1); }
+        .contact-link.insta {
+            background: linear-gradient(135deg, #f9e4c8 0%, #f3c6d0 50%, #d9c3e8 100%);
+            color: #6b3060;
+            border: 1px solid rgba(180,100,150,0.2);
+        }
+        .contact-link.mail {
+            background: var(--white);
+            color: var(--ink);
+            border: 1px solid var(--border);
+        }
+        .contact-link-icon { font-size: 1.2rem; flex-shrink: 0; }
+        .contact-link-text { text-align: left; }
+        .contact-link-label { font-size: 0.72rem; opacity: 0.6; display: block; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1px; }
+        .contact-link-value { font-size: 0.9rem; }
+        .contact-link-arrow { margin-left: auto; opacity: 0.45; font-size: 0.8rem; }
+
+        /* 푸터 */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            font-size: 0.76rem;
+            color: var(--ink-light);
+            opacity: 0.55;
+            padding: 0 28px 48px;
+            letter-spacing: 0.05em;
+            line-height: 1.9;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ── 반응형 ── */
+        @media (max-width: 600px) {
+            nav { padding: 18px 24px; gap: 20px; }
+            .hero { padding: 80px 24px 40px; }
+            .hero::before { left: 20px; }
+            .hero::after  { right: 20px; }
+            main { padding: 0 18px 60px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="profile">
-        <img src="ongil_profile.jpg" alt="온길">
-    </div>
-    <div class="name">온길 (안혜진)</div>
-    <div class="intro">20년 차 초등교사 · 작가 · 성장 코치<br>"나답게 성장하는 여정을 따뜻하게 기록합니다"</div>
+    <!-- 상단 네비게이션 -->
+    <nav>
+        <a href="#about">소개</a>
+        <a href="#growth">성장철학</a>
+        <a href="#books">브런치북</a>
+        <a href="#record">블로그</a>
+    </nav>
 
-    <div class="special-box">
-        <h3 style="margin: 0;">AI와 상담심리 강의자료</h3>
-        <p style="font-size: 0.9rem; opacity: 0.8;">4월 남부대학교 대학원 특강용 프롬프트 & 도구모음</p>
-        <a href="https://docs.google.com/document/d/1YYN0rpw7etao4AyhoUnLb9Y7voAkc7A-yPoGOp2RQxI/edit?tab=t.0" target="_blank" class="btn-ai">자료 보러가기 →</a>
-    </div>
+    <!-- 히어로 -->
+    <section class="hero" id="about">
+        <div class="hero-inner">
+            <p class="label">Teacher &amp; Growth Coach</p>
+            <h1 class="title-ongil">온길</h1>
+            <div class="divider"></div>
+            <p class="subtitle">
+                <span>ONGIL</span>
+                <span class="dot">●</span>
+                <span>안혜진</span>
+            </p>
+            <p class="tagline">
+                나답게 성장해 가는 여정을<br>
+                따뜻한 시선으로 기록하는 사람
+            </p>
+            <p class="quote">"성공은 남이 평가하는 그림, 성장은 내가 그려가는 그림"</p>
+        </div>
+    </section>
 
-    <div class="section">
-        <div class="section-title">GROWTH PHILOSOPHY</div>
-        <div class="growth-item">🌱 <b>믿음이 먼저:</b> 누구나 성장할 수 있다는 믿음에서 시작합니다.</div>
-        <div class="growth-item">👣 <b>오늘 한 걸음:</b> 하루의 작은 성취가 삶을 바꿉니다.</div>
-        <div class="growth-item">🌙 <b>깊고 단단하게:</b> 결과보다 내 안의 평안과 의미를 향합니다.</div>
-    </div>
+    <!-- 메인 콘텐츠 -->
+    <main>
 
-    <div class="section">
-        <div class="section-title">BRUNCH BOOKS</div>
-        <div class="link-list">
+        <!-- 강의자료 -->
+        <div class="special-box">
+            <h3>AI와 상담심리 강의자료</h3>
+            <p>4월 남부대학교 대학원 특강용 프롬프트 &amp; 도구모음</p>
+            <a href="https://docs.google.com/document/d/1YYN0rpw7etao4AyhoUnLb9Y7voAkc7A-yPoGOp2RQxI/edit?tab=t.0" target="_blank" class="btn-ai">자료 보러가기 →</a>
+        </div>
+
+        <!-- 성장철학 -->
+        <div class="section" id="growth">
+            <p class="section-title">Growth Philosophy</p>
+            <div class="growth-item">
+                <span class="icon">🌱</span>
+                <span><b>믿음이 먼저:</b> 누구나 성장할 수 있다는 믿음에서 시작합니다.</span>
+            </div>
+            <div class="growth-item">
+                <span class="icon">👣</span>
+                <span><b>오늘 한 걸음:</b> 하루의 작은 성취가 삶을 바꿉니다.</span>
+            </div>
+            <div class="growth-item">
+                <span class="icon">🌙</span>
+                <span><b>깊고 단단하게:</b> 결과보다 내 안의 평안과 의미를 향합니다.</span>
+            </div>
+        </div>
+
+        <!-- 브런치북 -->
+        <div class="section" id="books">
+            <p class="section-title">Brunch Books</p>
             <a href="https://brunch.co.kr/brunchbook/teachers-words" target="_blank" class="link-item">
-                <span class="link-num">01</span> 교사의 언어 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+                <span><span class="link-num">01</span>교사의 언어</span>
+                <span class="link-arrow">보러가기 ›</span>
             </a>
             <a href="https://brunch.co.kr/brunchbook/botongnal" target="_blank" class="link-item">
-                <span class="link-num">02</span> 보통날의 철학 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+                <span><span class="link-num">02</span>보통날의 철학</span>
+                <span class="link-arrow">보러가기 ›</span>
             </a>
             <a href="https://brunch.co.kr/brunchbook/booktoself" target="_blank" class="link-item">
-                <span class="link-num">03</span> 책으로부터, 나에게로 <span style="font-size: 0.8rem; color: #9a8878; float: right;">보러가기 ></span>
+                <span><span class="link-num">03</span>책으로부터, 나에게로</span>
+                <span class="link-arrow">보러가기 ›</span>
             </a>
         </div>
-    </div>
 
-    <div class="section">
-        <div class="section-title">RECORD</div>
-        <a href="https://blog.naver.com/hyejinan091" target="_blank" class="link-item" style="background: #f0fdf4; border-color: #bbf7d0;">
-            📝 <b>온길의 블로그:</b> 일상과 성장의 기록 보러가기
-        </a>
-    </div>
+        <!-- 블로그 -->
+        <div class="section" id="record">
+            <p class="section-title">Record</p>
+            <a href="https://blog.naver.com/hyejinan091" target="_blank" class="link-item blog-item">
+                <span>📝 <b>온길의 블로그</b> — 일상과 성장의 기록</span>
+                <span class="link-arrow">보러가기 ›</span>
+            </a>
+        </div>
+
+        <!-- 강연 문의 -->
+        <div class="section">
+            <p class="section-title">Contact</p>
+            <p class="contact-note">강연 · 원고 · 코칭 문의는 인스타그램 DM이나 메일로 편하게 연락 주세요 :)</p>
+            <div class="contact-links">
+                <a href="https://www.instagram.com/hi_ongil/" target="_blank" class="contact-link insta">
+                    <span class="contact-link-icon">📷</span>
+                    <span class="contact-link-text">
+                        <span class="contact-link-label">Instagram — 주로 여기로!</span>
+                        <span class="contact-link-value">@hi_ongil</span>
+                    </span>
+                    <span class="contact-link-arrow">›</span>
+                </a>
+                <a href="mailto:hyejinan091@gmail.com" class="contact-link mail">
+                    <span class="contact-link-icon">✉️</span>
+                    <span class="contact-link-text">
+                        <span class="contact-link-label">Email</span>
+                        <span class="contact-link-value">hyejinan091@gmail.com</span>
+                    </span>
+                    <span class="contact-link-arrow">›</span>
+                </a>
+            </div>
+        </div>
+
+    </main>
 
     <footer>
-        © 2025 온길 Ongil. All Rights Reserved.<br>
-        hyejinan091@gmail.com
+        © 2025 온길 Ongil. All Rights Reserved.
     </footer>
 
 </body>
