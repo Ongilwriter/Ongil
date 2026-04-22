@@ -183,44 +183,30 @@
             padding: 0 28px 80px;
         }
 
-        /* 강의자료 특별 박스 */
-        .special-box {
-            background: var(--ink);
-            color: var(--white);
-            padding: 32px 28px;
-            border-radius: 4px;
-            text-align: center;
-            margin-bottom: 56px;
-            box-shadow: 0 8px 32px rgba(42,31,20,0.18);
-        }
-        .special-box h3 {
-            font-family: 'Nanum Myeongjo', serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-        }
-        .special-box p {
-            font-size: 0.82rem;
-            opacity: 0.65;
-            margin-bottom: 20px;
-            letter-spacing: 0.03em;
-        }
-        .btn-ai {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 11px 28px;
-            border-radius: 2px;
-            font-family: 'Noto Serif KR', serif;
-            font-size: 0.88rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-decoration: none;
-            transition: background 0.3s, transform 0.2s;
-        }
-        .btn-ai:hover { background: #e8a66a; transform: translateY(-1px); }
+      <div class="special-box">
+    <h3>AI와 상담심리 강의자료</h3>
+    <p>남부대학교 대학원 특강용 프롬프트 및 AI 도구모음입니다.</p>
+    
+    <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; margin-top: 20px;">
+        
+        <a href="https://docs.google.com/document/d/1YYN0rpw7etao4AyhoUnLb9Y7voAkc7A-yPoGOp2RQxI/edit?usp=sharing" target="_blank" 
+           style="display: block; width: 100%; max-width: 300px; padding: 12px; background: var(--white); color: var(--ink); text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 0.9rem;">
+            🛠 AI 도구 링크 모음
+        </a>
 
+        <div style="display: flex; gap: 8px; width: 100%; max-width: 300px;">
+            <a href="https://docs.google.com/spreadsheets/d/1sYcKV8RwHBFUK_gIDAMFofR0JhE6YosY5tnRDbpXnHc/edit?usp=sharing" target="_blank" 
+               style="flex: 1; padding: 10px; border: 1px solid rgba(255,255,255,0.3); color: white; text-decoration: none; border-radius: 4px; font-size: 0.75rem;">
+                🎓 교사용 프롬프트
+            </a>
+            <a href="https://docs.google.com/spreadsheets/d/1nw025qtH4dnbEXH0XzQ8CwRBCuOh7V0tVqOUcfS2Gik/edit?usp=sharing" target="_blank" 
+               style="flex: 1; padding: 10px; border: 1px solid rgba(255,255,255,0.3); color: white; text-decoration: none; border-radius: 4px; font-size: 0.75rem;">
+                🤝 상담자용 프롬프트
+            </a>
+        </div>
+        
+    </div>
+</div>
         /* 공통 섹션 */
         .section {
             border-top: 1px solid var(--border);
